@@ -1,13 +1,25 @@
-# pi-aster-provider
+<div align="center">
 
-A [pi](https://github.com/badlogic/pi-mono) extension that adds [Aster](https://asterlab.ai) as a custom model provider.
+# ✳️ pi-aster-provider
+
+**Kimi K3, GLM-5.2, GPT-OSS — via [Aster](https://asterlab.ai)**
+
+_Coding-optimized open weights with lossless 1M context, for [pi](https://github.com/earendil-works/pi-coding-agent)._
+
+[![pi extension](https://img.shields.io/badge/pi-extension-blueviolet)](https://github.com/earendil-works/pi-coding-agent)
+[![npm](https://img.shields.io/npm/v/pi-aster-provider)](https://www.npmjs.com/package/pi-aster-provider)
+[![license](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+
+</div>
+
+---
 
 ## Features
 
 - **OpenAI-compatible API** — Uses Aster's `/v1/chat/completions` endpoint
 - **Coding-optimized models** — Kimi K3 (1M context), GLM 5.2, GPT-OSS 120B, and more
 - **Reasoning models** — All chat models think by default; control depth with `/reasoning`
-- **Tool use** — Function calling works on every chat model
+- **Tool use** — Function calling works on every chat model (synbad-verified)
 - **Prompt caching** — Discounted cached input on GLM and Kimi K3
 - **Batch variant** — `zai-org/glm-5.2-batch`, the discounted GLM 5.2 batch lane
 - **Live model sync** — Models refresh from the Aster API in the background
@@ -30,30 +42,31 @@ Non-chat endpoints (e.g. `aster/wildflower`, per-call search pricing) are intent
 
 ### Option 1: Using `pi install` (Recommended)
 
-Install directly from GitHub:
+Install from npm:
 
 ```bash
-pi install git:github.com/monotykamary/pi-aster-provider
+pi install npm:pi-aster-provider
 ```
 
-Then set your API key and run pi:
+Or install directly from GitHub:
+
 ```bash
-# Recommended: add to auth.json
-# See Authentication section below
-
-# Or set as environment variable
-export ASTER_API_KEY=your-api-key-here
-
-pi
+pi install https://github.com/monotykamary/pi-aster-provider
 ```
 
-Get your API key from [asterlab.ai](https://asterlab.ai).
+### Option 2: With npm
 
-### Option 2: Manual Clone
+Install from npm:
+
+```bash
+npm install pi-aster-provider
+```
+
+### Option 3: Manual Clone
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/monotykamary/pi-aster-provider.git
+   git clone git@github.com:monotykamary/pi-aster-provider.git
    cd pi-aster-provider
    ```
 
@@ -70,6 +83,19 @@ Get your API key from [asterlab.ai](https://asterlab.ai).
    ```bash
    pi -e /path/to/pi-aster-provider
    ```
+
+Then authenticate and run pi:
+```bash
+# Recommended: add to auth.json
+# See Authentication section below
+
+# Or set as environment variable
+export ASTER_API_KEY=your-api-key-here
+
+pi
+```
+
+Get your API key from [asterlab.ai](https://asterlab.ai).
 
 ## Authentication
 
@@ -143,6 +169,21 @@ passes the mapped value through as the `reasoning_effort` request field. Support
   calls in a single response (it serializes them); sequential tool calling works fine.
 - Kimi K3 keeps thinking on at all times (Moonshot canonical); `low`/`high`/`max` map through, `max` is the
   model's natural default.
+
+## Inference Quality
+
+[Verified with synbad](https://github.com/synthetic-lab/synbad) (`--count 1`, plain and `--stream`):
+
+| Model | Non-stream | Stream |
+|-------|-----------|--------|
+| GLM 5.2 | ✅ 15/15 | ✅ 15/15 |
+| GLM 5.2 Batch | ✅ 15/15 | — |
+| Kimi K3 | ✅ 15/15 | ✅ 15/15 |
+| GPT OSS 120B | ⚠️ 12/15 | ⚠️ 11/15 |
+
+All reasoning evals (parsing + multi-turn reasoning preservation) pass on every model. The gpt-oss misses are
+Aster-side serving quirks — grammar-constrained (`strict`) tool schemas 400 (mitigated here via
+`supportsStrictMode: false`) and serialized parallel calls — not reasoning or history bugs.
 
 ## Updating Models
 
