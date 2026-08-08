@@ -1,11 +1,60 @@
 {
-  "kimi-k3": {
-    "maxTokens": 131072
+  "gpt-oss-120b": {
+    "thinkingLevelMap": {
+      "off": null,
+      "minimal": null,
+      "low": "low",
+      "medium": "medium",
+      "high": "high",
+      "xhigh": null,
+      "max": null
+    }
+  },
+  "gpt-oss-120b-fast": {
+    "thinkingLevelMap": {
+      "off": null,
+      "minimal": null,
+      "low": "low",
+      "medium": "medium",
+      "high": "high",
+      "xhigh": null,
+      "max": null
+    }
   },
   "glm-5.2": {
-    "maxTokens": 131072
+    "maxTokens": 131072,
+    "thinkingLevelMap": {
+      "off": "none",
+      "minimal": null,
+      "low": "low",
+      "medium": "medium",
+      "high": "high",
+      "xhigh": null,
+      "max": "max"
+    }
+  },
+  "kimi-k3": {
+    "maxTokens": 131072,
+    "thinkingLevelMap": {
+      "off": null,
+      "minimal": null,
+      "low": "low",
+      "medium": null,
+      "high": "high",
+      "xhigh": null,
+      "max": "max"
+    }
   },
   "zai-org/glm-5.2-batch": {
-    "maxTokens": 131072
+    "maxTokens": 131072,
+    "thinkingLevelMap": {
+      "off": "none",
+      "minimal": null,
+      "low": "low",
+      "medium": "medium",
+      "high": "high",
+      "xhigh": null,
+      "max": "max"
+    }
   }
 }

@@ -10,8 +10,10 @@
  * Key API details (probed live):
  *   - All chat models return `reasoning_content` (DeepSeek-style field),
  *     parsed by pi regardless of thinkingFormat.
- *   - Thinking is controlled via OpenAI-style `reasoning_effort`
- *     (none/low/medium/high); `none` disables reasoning on GLM/Kimi.
+ *   - Thinking is controlled via OpenAI-style `reasoning_effort`. Aster accepts
+ *     none/low/medium/high/max (higher tiers model-dependent; `max` on Kimi,
+ *     none disables thinking on GLM; gpt-oss is locked to low/medium/high).
+ *     Per-model surfaces live in patch.json `thinkingLevelMap`.
  *   - Both `max_tokens` and `max_completion_tokens` are honored.
  *   - GPT-OSS models strictly validate prompt + max_completion_tokens
  *     against the 131K context, so their curated maxTokens is conservative.

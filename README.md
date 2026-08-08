@@ -121,8 +121,14 @@ All Aster chat models are reasoning models (thinking is on by default). Control 
 /reasoning high
 ```
 
-Levels: `off`, `minimal`, `low`, `medium`, `high`. `off` maps to `reasoning_effort: none`
-(disables thinking); the rest pass through to the `reasoning_effort` request field.
+Levels are model-dependent (`off` … `max`); pi clamps to the nearest level each model supports and the extension
+passes the mapped value through as the `reasoning_effort` request field. Support matrix (probed against Aster):
+
+- **gpt-oss-120b / -fast**: `low` `medium` `high` — canonically fixed at three levels; thinking cannot be disabled
+  (`none` is accepted but the model still reasons), and `minimal`/`xhigh`/`max` are rejected with HTTP 400.
+- **glm-5.2 / glm-5.2-batch**: `off` maps to `none` (disables thinking), `low`, `medium`, `high`, `max`.
+  `minimal` and `xhigh` are rejected (Z.AI canonical semantics map `low`/`medium` onto `high` behavior).
+- **kimi-k3**: `low`, `high`, `max` (Moonshot canonical — K3 defaults to max thinking and thinking stays on).
 
 ## API Compatibility Notes
 
