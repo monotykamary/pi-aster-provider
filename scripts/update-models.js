@@ -452,6 +452,12 @@ passes the mapped value through as the \`reasoning_effort\` request field. Suppo
 - GPT-OSS models strictly validate \`prompt + max_completion_tokens ≤ context\` (131K), so their
   curated max output is held to 32K; GLM 5.2 and Kimi K3 accept up to 128K completion tokens.
 - Image input is not supported by Aster's chat models (text-only).
+- **gpt-oss-120b (and -fast)**: Aster's DFLASH speculative decoding rejects grammar-constrained requests —
+  any tool schema sent with \`strict: true\` fails with HTTP 400. This extension sets \`supportsStrictMode: false\`
+  so pi omits the \`strict\` field for these models. Also note the model does not reliably emit *parallel* tool
+  calls in a single response (it serializes them); sequential tool calling works fine.
+- Kimi K3 keeps thinking on at all times (Moonshot canonical); \`low\`/\`high\`/\`max\` map through, \`max\` is the
+  model's natural default.
 
 ## Updating Models
 

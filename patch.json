@@ -1,5 +1,6 @@
 {
   "gpt-oss-120b": {
+    "compat": { "supportsStrictMode": false },
     "thinkingLevelMap": {
       "off": null,
       "minimal": null,
@@ -11,6 +12,7 @@
     }
   },
   "gpt-oss-120b-fast": {
+    "compat": { "supportsStrictMode": false },
     "thinkingLevelMap": {
       "off": null,
       "minimal": null,
