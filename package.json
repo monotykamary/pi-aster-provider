@@ -1,0 +1,41 @@
+{
+  "name": "pi-aster-provider",
+  "version": "1.0.0",
+  "packageManager": "pnpm@11.20.0",
+  "description": "Aster (asterlab.ai) provider extension for pi - Access Kimi K3, GLM 5.2, GPT-OSS, and batch models through the Aster API",
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "clean": "echo 'nothing to clean'",
+    "build": "echo 'nothing to build'",
+    "check": "echo 'nothing to check'",
+    "update-models": "node scripts/update-models.js"
+  },
+  "keywords": [
+    "pi",
+    "extension",
+    "provider",
+    "aster",
+    "asterlab",
+    "ai",
+    "llm",
+    "kimi",
+    "moonshot",
+    "glm",
+    "gpt-oss",
+    "coding"
+  ],
+  "author": "",
+  "license": "MIT",
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "devDependencies": {
+    "@earendil-works/pi-ai": "0.84.1",
+    "@earendil-works/pi-coding-agent": "0.84.1",
+    "@types/node": "^25.9.2",
+    "typescript": "^6.0.3"
+  }
+}

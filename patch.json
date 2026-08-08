@@ -1,0 +1,11 @@
+{
+  "kimi-k3": {
+    "maxTokens": 131072
+  },
+  "glm-5.2": {
+    "maxTokens": 131072
+  },
+  "zai-org/glm-5.2-batch": {
+    "maxTokens": 131072
+  }
+}
