@@ -32,7 +32,7 @@ _Coding-optimized open weights with lossless 1M context, for [pi](https://github
 | GLM 5.2 Batch | `zai-org/glm-5.2-batch` | 1.0M | 131K | ❌ | ✅ | ❌ | $0.75 | $2.50 |
 | GPT OSS 120B | `gpt-oss-120b` | 131K | 33K | ❌ | ✅ | ❌ | $0.15 | $0.60 |
 | GPT OSS 120B Fast | `gpt-oss-120b-fast` | 131K | 33K | ❌ | ✅ | ❌ | $0.15 | $0.60 |
-| Kimi K3 | `kimi-k3` | 1.0M | 131K | ❌ | ✅ | ✅ | $2.50 | $12.50 |
+| Kimi K3 | `kimi-k3` | 1.0M | 131K | ❌ | ✅ | ✅ | $2.00 | $10.00 |
 
 *Costs are per million tokens.*
 
