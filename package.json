@@ -1,6 +1,6 @@
 {
   "name": "pi-aster-provider",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "Aster (asterlab.ai) provider extension for pi - Access Kimi K3, GLM 5.2, GPT-OSS, and batch models through the Aster API",
   "type": "module",
   "main": "index.ts",
