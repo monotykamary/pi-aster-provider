@@ -341,7 +341,7 @@ _Coding-optimized open weights with lossless 1M context, for [pi](https://github
 - **Tool use** — Function calling works on every chat model (synbad-verified)
 - **Prompt caching** — Discounted cached input on GLM and Kimi K3
 - **Batch variant** — \`zai-org/glm-5.2-batch\`, the discounted GLM 5.2 batch lane
-- **Live model sync** — Models refresh from the Aster API in the background
+- **Quiet live model sync** — Models refresh from the Aster API in the background, at most hourly and by one pi process at a time ([details](#model-sync))
 
 ## Available Models
 
@@ -431,6 +431,7 @@ Get your API key from [asterlab.ai](https://asterlab.ai).
 | Variable | Required | Description |
 |----------|----------|-------------|
 | \`ASTER_API_KEY\` | No | Your Aster API key (fallback if not in auth.json) |
+| \`PI_PROVIDER_SYNC_TTL_MS\` | No | Model sync freshness window in ms (default \`3600000\`; \`0\` = revalidate every session start) |
 
 ## Configuration
 
@@ -499,6 +500,20 @@ passes the mapped value through as the \`reasoning_effort\` request field. Suppo
 All reasoning evals (parsing + multi-turn reasoning preservation) pass on every model. The gpt-oss misses are
 Aster-side serving quirks — grammar-constrained (\`strict\`) tool schemas 400 (mitigated here via
 \`supportsStrictMode: false\`) and serialized parallel calls — not reasoning or history bugs.
+
+## Model sync
+
+Startup never waits on the network. pi starts with the cached catalog (\`~/.pi/agent/cache/aster-models.json\`,
+falling back to the bundled \`models.json\`) and revalidates against \`/v1/models\` in the background — only when:
+
+- an Aster API key is configured (no key, no request),
+- the cache is older than 1 hour, missing, or was fetched with a different API key, and
+- no other pi process is already refreshing it (an \`aster-models.lock\` file next to the cache).
+
+So \`/new\`, \`/reload\`, \`pi -p\` and fan-out child agents share one cache instead of each calling the API; a
+session that skips the fetch still picks up a cache another process refreshed. A failed refresh is retried after
+5 minutes at the earliest. \`PI_PROVIDER_SYNC_TTL_MS\` changes the window (\`0\` revalidates on every session start).
+Only a hash fingerprint of the key is stored (\`aster-models.sync.json\`), never the key itself.
 
 ## Updating Models
 
